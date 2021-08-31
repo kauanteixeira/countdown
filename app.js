@@ -1,13 +1,15 @@
 const containerTime = document.querySelector('#countdown');
-const spinner = document.querySelector('#spinner');
 const daysContainer = document.querySelector('#days');
 const hoursContainer = document.querySelector('#hours');
 const minutesContainer = document.querySelector('#minutes');
 const secondsContainer = document.querySelector('#seconds');
+const spinner = document.querySelector('#spinner');
 
-const newYearTime = new Date('September 03 2021 00:00:00');
+const currentYear = new Date().getFullYear() + 1;
+const newYearTime = new Date(`January 01 ${currentYear} 00:00:00`);
 
-const getTimeUnit = unit => unit < 10 ? '0' + unit : unit
+const getTimeUnit = unit => unit < 10 ? '0' + unit : unit;
+
 const insertCountdownValues = ({ days, hours, minutes, seconds }) => {
   daysContainer.textContent = getTimeUnit(days);
   hoursContainer.textContent = getTimeUnit(hours);
@@ -26,11 +28,10 @@ const updateCountDown = () => {
   insertCountdownValues({ days, hours, minutes, seconds })
 }
 
-setTimeout(() => {
+const showCountdown = () => {
   spinner.remove();
   containerTime.style.display = 'flex';
-}, 1000)
+}
 
-setInterval(() => {
-  updateCountDown();
-}, 1000)
+setTimeout(showCountdown, 1000);
+setInterval(updateCountDown, 1000);
